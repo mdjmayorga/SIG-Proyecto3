@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mapa Nicoya - Servicios</title>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+
+<!-- Librería SQL para leer el .mbtiles (SQLite en el navegador) -->
+<script src="https://unpkg.com/sql.js@0.3.2/js/sql.js"></script>
+
+<!-- Plugin Leaflet.TileLayer.MBTiles (cargado desde archivo local) -->
+<script src="./Leaflet.TileLayer.MBTiles.js"></script>
+
+<script>
+  // Crear mapa centrado en Costa Rica
+  var map = L.map('map', {
+    center: [10.12, -85.44],   // centro aproximado de Costa Rica
+    zoom: 11,                // zoom inicial
+    minZoom: 11,             // AJUSTA estos valores
+    maxZoom: 17             // al rango que exportaste en TileMill
+  });
+
+  // Cargar el archivo MBTiles generado en TileMill
+  var mb = L.tileLayer.mbTiles('P3SIG.mbtiles', {
+    attribution: 'Mosaico generado en TileMill',
+    minZoom: 11,  // mismos que arriba
+    maxZoom: 17
+  }).addTo(map);
+
+  // (Opcional) log cuando la BD se cargó
+  mb.on('databaseloaded', function(ev) {
+    console.log('MBTiles cargado:', ev);
+  });
+
+  mb.on('databaseerror', function(ev) {
+    console.error('Error cargando MBTiles:', ev);
+  });
+</script>
+
+</body>
+</html>
