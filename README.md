@@ -30,6 +30,7 @@ El mapa contiene información lineal sobre:
 El mapa contiene información poligonal sobre:
 - Edificios
 
+Cada capa fue estilizada en TileMill adecuadaente, controlando el nivel de zoom en el que aparece y teniendo en cuenta que sean diferentes entre sí.
 
 
 ## Mapa publicado
